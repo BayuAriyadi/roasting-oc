@@ -7,7 +7,7 @@ const cohere = new CohereClient({
 
 export async function POST(req: Request) {
   try {
-    const { name, age, description, artist } = await req.json();
+    const { name, age, description } = await req.json();
 
     // Membangun prompt untuk roasting
     const prompt = `Buat roasting yang tajam dan singkat untuk karakter OC berikut:
