@@ -1,7 +1,25 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-import { Typography } from "@material-tailwind/react";
+import { FaGithub, FaFacebook } from "react-icons/fa"; // Import icon dari react-icons
+
+// Array gambar acak
+const randomImages = [
+  "/img/bensin-habis.jpg",
+  "/img/biar-apa.jpg",
+  "/img/bising-bodo.jpg",
+  "/img/dongo.jpg",
+  "/img/kecewa-berat.jpg",
+  "/img/kurang-jelas.jpg",
+  "/img/logikanya-dimana.jpg",
+  "/img/malas.jpg",
+  "/img/njir.jpg",
+  "/img/pfft.jpg",
+  "/img/pura-pura-galiat.jpg",
+  "/img/reaksi-saya.jpg",
+  "/img/reaksi-saya.jpg",
+  "/img/spgnbb.jpg"
+];
 
 export default function Home() {
   const [name, setName] = useState<string>("");
@@ -10,6 +28,7 @@ export default function Home() {
   const [roast, setRoast] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showRoast, setShowRoast] = useState<boolean>(false); // Untuk mengontrol kapan roast muncul dengan animasi
+  const [randomImage, setRandomImage] = useState<string>(""); // State untuk gambar acak
 
   const handleRoast = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +41,10 @@ export default function Home() {
         description,
       });
       setRoast(response.data.roast);
+
+      // Pilih gambar acak
+      const randomImg = randomImages[Math.floor(Math.random() * randomImages.length)];
+      setRandomImage(randomImg); // Atur gambar acak
       setTimeout(() => setShowRoast(true), 500); // Tampilkan hasil roasting dengan delay
     } catch (error) {
       console.error("Error generating roast:", error);
@@ -32,7 +55,7 @@ export default function Home() {
   };
 
   return (
-    <div >
+    <div>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 fade-in">
         <h1 className="text-4xl font-bold text-blue-600 mb-8 text-center">
           Roasting OC Luwh
@@ -49,8 +72,7 @@ export default function Home() {
               setName(e.target.value)
             }
             required
-            className="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400
-          "
+            className="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
           <input
             type="number"
@@ -82,6 +104,7 @@ export default function Home() {
             {loading ? "Generating Roast... " : "Roast!"}
           </button>
         </form>
+
         {showRoast && (
           <div className="mt-6 bg-gray-50 p-4 rounded shadow-lg w-full max-w-lg overflow-hidden break-words fade-in">
             <h2 className="text-2xl font-semibold mb-4 text-red-600">
@@ -90,10 +113,44 @@ export default function Home() {
             <div className="text-left text-lg break-words max-w-full">
               {roast}
             </div>
+            {/* Menampilkan gambar acak di bawah teks roast */}
+            <div className="mt-4">
+              <img
+                src={randomImage}
+                alt="Random"
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
           </div>
         )}
       </div>
       
+      {/* Footer */}
+      <footer className="bg-transparent p-4 text-center">
+      <div className="flex items-center justify-center space-x-4">
+        {/* GitHub Link */}
+        <a
+          href="https://github.com/BayuAriyadi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-600 hover:text-gray-800 flex items-center"
+        >
+          <FaGithub className="text-2xl mr-2" />
+          <span>Bayu Ariyadi</span>
+        </a>
+
+        {/* Facebook Link */}
+        <a
+          href="https://facebook.com/bayu.ariyadi.fuujin"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-600 hover:text-gray-800 flex items-center"
+        >
+          <FaFacebook className="text-2xl mr-2" />
+          <span>Bayu Ariyadi</span>
+        </a>
+      </div>
+    </footer>
     </div>
   );
 }

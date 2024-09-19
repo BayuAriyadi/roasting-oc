@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased`} // Tambahkan Poppins variable di sini
+        className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} inter.className antialiased`} // Tambahkan Poppins variable di sini
       >
         {children}
       </body>
