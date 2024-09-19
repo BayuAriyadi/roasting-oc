@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
+import Image from 'next/image';
 import { FaGithub, FaFacebook } from "react-icons/fa"; // Import icon dari react-icons
 
 // Array gambar acak

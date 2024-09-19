@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { CohereClient } from 'cohere-ai';
 
+
 const cohere = new CohereClient({
   token: process.env.COHERE_API_KEY, // Ambil API key dari environment variables
 });
