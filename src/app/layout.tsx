@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google"; // Import Poppins dari Google Fonts
 import "./styles/globals.css";
+import { Analytics } from '@vercel/analytics/react';
 
 // Local fonts
 const geistSans = localFont({
@@ -42,6 +43,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} inter.className antialiased`} // Tambahkan Poppins variable di sini
       >
         {children}
+        <Analytics />
       </body>
     </html>
   );
