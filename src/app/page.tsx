@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import axios from "axios";
-import Image from 'next/image';
+import Image from "next/image";
 import { FaGithub, FaFacebook } from "react-icons/fa"; // Import icon dari react-icons
 
 // Array gambar acak
@@ -19,7 +19,7 @@ const randomImages = [
   "/img/pura-pura-galiat.jpg",
   "/img/reaksi-saya.jpg",
   "/img/reaksi-saya.jpg",
-  "/img/spgnbb.jpg"
+  "/img/spgnbb.jpg",
 ];
 
 export default function Home() {
@@ -29,7 +29,8 @@ export default function Home() {
   const [roast, setRoast] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [showRoast, setShowRoast] = useState<boolean>(false); // Untuk mengontrol kapan roast muncul dengan animasi
-  const [randomImage, setRandomImage] = useState<string>(""); // State untuk gambar acak
+
+  const images = randomImages[Math.floor(Math.random() * randomImages.length)];
 
   const handleRoast = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,9 +44,6 @@ export default function Home() {
       });
       setRoast(response.data.roast);
 
-      // Pilih gambar acak
-      const randomImg = randomImages[Math.floor(Math.random() * randomImages.length)];
-      setRandomImage(randomImg); // Atur gambar acak
       setTimeout(() => setShowRoast(true), 500); // Tampilkan hasil roasting dengan delay
     } catch (error) {
       console.error("Error generating roast:", error);
@@ -58,9 +56,19 @@ export default function Home() {
   return (
     <div>
       <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 fade-in">
-        <h1 className="text-4xl font-bold text-blue-600 mb-8 text-center">
-          Roasting OC Luwh
-        </h1>
+        {/* Wrap the title and image in a relative container */}
+        <div className="relative w-full max-w-lg mb-8">
+          <h1 className="text-4xl font-bold text-blue-600 text-center relative z-10">
+            Roasting OC Luwh
+          </h1>
+
+          {/* Small anime character image positioned absolutely above the title */}
+          <img
+            src="/img/dongo.jpg" // Replace with the correct image path
+            alt="Anime Character"
+            className="absolute -top-20 right-0 w-24 h-auto opacity-70" // Positioned above the title, auto height for proportion
+          />
+        </div>
         <form
           onSubmit={handleRoast}
           className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg flex flex-col space-y-4 fade-in"
@@ -116,42 +124,44 @@ export default function Home() {
             </div>
             {/* Menampilkan gambar acak di bawah teks roast */}
             <div className="mt-4">
-              <img
-                src={randomImage}
-                alt="Random"
+              <Image
+                src={images}
+                alt="Roasting Reaction"
+                width={500}
+                height={300}
                 className="w-full h-auto rounded-lg"
               />
             </div>
           </div>
         )}
       </div>
-      
+
       {/* Footer */}
       <footer className="bg-transparent p-4 text-center">
-      <div className="flex items-center justify-center space-x-4">
-        {/* GitHub Link */}
-        <a
-          href="https://github.com/BayuAriyadi"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-600 hover:text-gray-800 flex items-center"
-        >
-          <FaGithub className="text-2xl mr-2" />
-          <span>Bayu Ariyadi</span>
-        </a>
+        <div className="flex items-center justify-center space-x-4">
+          {/* GitHub Link */}
+          <a
+            href="https://github.com/BayuAriyadi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-800 flex items-center"
+          >
+            <FaGithub className="text-2xl mr-2" />
+            <span>Bayu Ariyadi</span>
+          </a>
 
-        {/* Facebook Link */}
-        <a
-          href="https://facebook.com/bayu.ariyadi.fuujin"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-600 hover:text-gray-800 flex items-center"
-        >
-          <FaFacebook className="text-2xl mr-2" />
-          <span>Bayu Ariyadi</span>
-        </a>
-      </div>
-    </footer>
+          {/* Facebook Link */}
+          <a
+            href="https://facebook.com/bayu.ariyadi.fuujin"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 hover:text-gray-800 flex items-center"
+          >
+            <FaFacebook className="text-2xl mr-2" />
+            <span>Bayu Ariyadi</span>
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }

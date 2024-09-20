@@ -16,6 +16,7 @@ export async function POST(req: Request) {
       - Umur: ${age}
       - Deskripsi: ${description}
       
+      di awal kalimat kamu ngomong "oke kali ini OC yang bla bla bla"
       Roasting dari nama berdasarkan filosofinya, jika usia oc tersebut dibawah 16 tahun maka tuduh sang artist adalah seorang pedo, Berdasarkan deskripsinya Buat roasting ini lucu, kejam, dan sarkastik dalam bahasa Indonesia yang gaul dan kekinian, dan kaitkan sama karakter yang mirip dengan deskripsi sang OC, utamakan roasting deskripsi OC tersebut, lalu Sertakan kecurigaan jangan-jangan artistnya jarang menggambar!
       Roasting dengan Realistis dan Panjang. Jika usianya ratusan tahun, ejek dengan manhwa kultivasi dunia persilatan
       remehkan sang artist seperti menambahkan kata "dek!" kepada sang artist
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
     // Mengirim permintaan ke Cohere
     const response = await cohere.chat({
         model: 'command-r-plus-08-2024',
-      message: prompt,
+        message: prompt,
     });
 
     console.log("Respons dari API Cohere:", response);

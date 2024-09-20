@@ -34,6 +34,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+       <head>
+        {/* Add the favicon link here */}
+        <link rel="icon" href="./Favicon.ico" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} inter.className antialiased`} // Tambahkan Poppins variable di sini
       >
