@@ -69,7 +69,9 @@ export default function Home() {
       });
       setRoast(response.data.roast);
       setTimeout(() => setShowRoast(true), 500);
-    } catch (error) {
+    } 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    catch (error) {
       setRoast("Maaf, terjadi kesalahan dalam menghasilkan roasting.");
       setShowRoast(true);
     }
