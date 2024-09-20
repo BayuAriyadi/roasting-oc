@@ -1,14 +1,15 @@
 import { FaGithub, FaFacebook } from "react-icons/fa";
+import Image from "next/image";
 
 const Footer = () => {
   return (
     <footer className="footer bg-neutral text-neutral-content p-10">
       <aside>
-        <img
+        <Image
           src="/svg/logo.svg"
           alt="Logo"
-          width="75"
-          height="auto"
+          width={75}
+          height={75}
           className="fill-current"
         />
         <div className="mt-4 text-neutral-content">
