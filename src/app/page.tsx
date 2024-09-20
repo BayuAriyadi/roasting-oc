@@ -122,7 +122,7 @@ export default function Home() {
             value={description}
             isDarkMode={isDarkMode}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Deskripsi OC"
+            placeholder="Deskripsi OC (maks 500 karakter)"
           />
           <SubmitButton loading={loading} isDarkMode={isDarkMode} />
         </form>
