@@ -1,8 +1,31 @@
-import Link from "next/link"; // Import ikon
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const Navbar = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    // Mengecek preferensi mode gelap dari sistem
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    setIsDarkMode(mediaQuery.matches);
+
+    const handleChange = (event: MediaQueryListEvent) => {
+      setIsDarkMode(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleChange);
+    };
+  }, []);
+
   return (
-    <div className="navbar bg-base-100">
+    <div
+      className={`navbar ${
+        isDarkMode ? "bg-gray-900 text-white" : "bg-base-100 text-black"
+      }`}
+    >
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -21,7 +44,11 @@ const Navbar = () => {
               />
             </svg>
           </div>
-          <ul className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-4 w-52 p-2 shadow">
+          <ul
+            className={`menu menu-sm dropdown-content ${
+              isDarkMode ? "bg-gray-800" : "bg-base-100"
+            } rounded-box z-[1] mt-4 w-52 p-2 shadow`}
+          >
             <li>
               <Link href="/">Home</Link>
             </li>
@@ -44,6 +71,7 @@ const Navbar = () => {
         <a className="btn btn-ghost text-xl">Dongok</a>
       </div>
       <div className="navbar-end">
+        {/* Tidak ada toggle, mengikuti sistem */}
       </div>
     </div>
   );

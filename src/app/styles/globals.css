@@ -3,20 +3,22 @@
 @tailwind utilities;
 
 :root {
-  --pink2:#FFDBAA;
-  --background: #FBA1B7;
+  --text-color: #000000;
+  --pink2: #ffdbaa;
+  --background: #fba1b7;
   --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --text-color: #fff0f5;
+    --pink2: #ffdbaa;
+    --background: #fba1b7;
+    --foreground: #171717;
   }
 }
 
 /* Add this to your global CSS file */
-
 
 body {
   color: var(--foreground);
@@ -25,16 +27,16 @@ body {
 }
 
 form {
-  background-color: #FFF0F5;
+  background-color: #fff0f5;
 }
 
 button {
-  background-color: #FFDBAA;
+  background-color: #ffdbaa;
   color: #000; /* You can adjust the text color for better contrast */
 }
 
 button:hover {
-  background-color: #E6C393; /* Slightly darker shade for hover effect */
+  background-color: #e6c393; /* Slightly darker shade for hover effect */
 }
 
 @layer utilities {
@@ -44,11 +46,10 @@ button:hover {
 }
 
 /* globals.css */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 /* Fade-in animation */
@@ -101,19 +102,17 @@ body {
 /* Add this to your CSS file, for example: globals.css */
 .glow-text {
   color: #ffffff; /* Set text color to white or whatever color you prefer */
-  text-shadow: 
-    0 0 8px rgba(255, 255, 255, 0.8),  /* Outer glow */
-    0 0 12px rgba(255, 255, 255, 0.6), /* Medium glow */
-    0 0 16px rgba(255, 255, 255, 0.5); /* Inner glow */
-  
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8),
+    /* Outer glow */ 0 0 12px rgba(255, 255, 255, 0.6),
+    /* Medium glow */ 0 0 16px rgba(255, 255, 255, 0.5); /* Inner glow */
+
   font-size: 2.5rem; /* Adjust font size */
   transition: text-shadow 0.3s ease-in-out;
 }
 
 /* Optional: On hover, intensify the glow */
 .glow-text:hover {
-  text-shadow: 
-    0 0 12px rgba(255, 255, 255, 1),   /* Outer glow */
-    0 0 20px rgba(255, 255, 255, 0.8), /* Medium glow */
-    0 0 30px rgba(255, 255, 255, 0.7); /* Inner glow */
+  text-shadow: 0 0 12px rgba(255, 255, 255, 1),
+    /* Outer glow */ 0 0 20px rgba(255, 255, 255, 0.8),
+    /* Medium glow */ 0 0 30px rgba(255, 255, 255, 0.7); /* Inner glow */
 }

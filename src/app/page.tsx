@@ -27,6 +27,7 @@ const randomImages = [
 ];
 
 export default function Home() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [name, setName] = useState<string>("");
   const [age, setAge] = useState<string>(""); // Ubah `age` jadi string
   const [description, setDescription] = useState<string>("");
@@ -88,16 +89,19 @@ export default function Home() {
         <form onSubmit={handleRoast} className="bg-customForm shadow-md rounded-lg p-6 w-full max-w-lg flex flex-col space-y-4 fade-in">
           <Input
             value={name}
+            isDarkMode={isDarkMode}
             onChange={(e) => setName(e.target.value)}
             placeholder="Nama OC"
           />
           <Input
-            value={age} // Pastikan `age` adalah string
+            value={age}
+            isDarkMode={isDarkMode} // Pastikan `age` adalah string
             onChange={(e) => setAge(e.target.value)} // Simpan sebagai string
             placeholder="Umur OC"
           />
           <TextArea
             value={description}
+            isDarkMode={isDarkMode}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Deskripsi OC"
           />

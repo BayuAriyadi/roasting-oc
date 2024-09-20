@@ -57,12 +57,14 @@ export default function About() {
           About This Website
         </h1>
         <p className="text-sm md:text-base leading-relaxed text-gray-700 mb-6">
-        Website ini dibuat khusus untuk seru-seruan dan lucu-lucuan! Di sini, kamu bisa menemukan roasting untuk karakter OC (Original Character) yang kamu buat. Ingat, semua ini hanya untuk hiburan, jadi jangan baper ya! Kita hanya ingin bikin kamu ketawa dan menikmati prosesnya. Selamat bersenang-senang!
+          Website ini dibuat khusus untuk seru-seruan dan lucu-lucuan! Di sini,
+          kamu bisa menemukan roasting untuk karakter OC (Original Character)
+          yang kamu buat. Ingat, semua ini hanya untuk hiburan, jadi jangan
+          baper ya! Kita hanya ingin bikin kamu ketawa dan menikmati prosesnya.
+          Selamat bersenang-senang!
         </p>
 
-        <h2 className="text-xl md:text-2xl font-bold mb-4">
-          Top Contributors
-        </h2>
+        <h2 className="text-xl md:text-2xl font-bold mb-4">Top Contributors</h2>
         <div className="flex justify-center flex-wrap gap-4">
           {contributors.length > 0 ? (
             contributors.map((contributor) => (
@@ -78,7 +80,8 @@ export default function About() {
                 </figure>
                 <div className="card-body items-center text-center">
                   <h2 className="card-title text-lg">{contributor.login}</h2>
-                  <p className="text-sm">{contributor.bio}</p> {/* Menampilkan bio */}
+                  <p className="text-sm">{contributor.bio}</p>{" "}
+                  {/* Menampilkan bio */}
                   <div className="card-actions">
                     <button className="btn bg-customButton hover:bg-customButtonHover">
                       <a
