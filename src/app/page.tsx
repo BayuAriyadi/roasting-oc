@@ -87,7 +87,7 @@ export default function Home() {
       <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen p-4 fade-in">
         <div className="relative w-full max-w-lg mb-8">
-          <h1 className="glow-text text-4xl font-bold text-blue-600 text-center relative z-10">
+          <h1 className="glow-text text-4xl font-bold text-blue-600 text-center relative z-[2] ">
             Roasting OC Luwh
           </h1>
 
@@ -96,7 +96,7 @@ export default function Home() {
             alt="Anime Character"
             width={100}
             height={100}
-            className="absolute -bottom-8 right-0 w-auto h-auto"
+            className="absolute -bottom-8 right-0 w-auto h-auto "
           />
         </div>
 

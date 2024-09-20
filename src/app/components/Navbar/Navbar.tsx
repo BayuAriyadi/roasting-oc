@@ -27,7 +27,7 @@ const Navbar = () => {
       }`}
     >
       <div className="navbar-start">
-        <div className="dropdown">
+        <div className="dropdown z-[3]">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
