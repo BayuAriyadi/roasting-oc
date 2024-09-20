@@ -1,6 +1,5 @@
-// src/app/page.tsx
- "use client"
-import { useState } from "react";
+"use client";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import Image from "next/image";
 import Navbar from "./components/Navbar/Navbar";
@@ -22,14 +21,13 @@ const randomImages = [
   "/img/pfft.jpg",
   "/img/pura-pura-galiat.jpg",
   "/img/reaksi-saya.jpg",
-  "/img/reaksi-saya.jpg",
   "/img/spgnbb.jpg",
 ];
 
 export default function Home() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [name, setName] = useState<string>("");
-  const [age, setAge] = useState<string>(""); // Ubah `age` jadi string
+  const [age, setAge] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [roast, setRoast] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -37,14 +35,26 @@ export default function Home() {
 
   const images = randomImages[Math.floor(Math.random() * randomImages.length)];
 
+  // Effect untuk mendeteksi preferensi sistem
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    setIsDarkMode(mediaQuery.matches);
+
+    const handleChange = (event: MediaQueryListEvent) => {
+      setIsDarkMode(event.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
   const handleRoast = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setShowRoast(false);
 
-    const parsedAge = Number(age); // Konversi umur menjadi number
+    const parsedAge = Number(age);
     if (isNaN(parsedAge)) {
-      console.error("Umur harus berupa angka.");
       setRoast("Umur harus berupa angka.");
       setShowRoast(true);
       setLoading(false);
@@ -54,14 +64,12 @@ export default function Home() {
     try {
       const response = await axios.post("/api/roast", {
         name,
-        age: parsedAge, // Kirim umur sebagai number
+        age: parsedAge,
         description,
       });
       setRoast(response.data.roast);
       setTimeout(() => setShowRoast(true), 500);
-    } 
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    catch (error) {
+    } catch (error) {
       setRoast("Maaf, terjadi kesalahan dalam menghasilkan roasting.");
       setShowRoast(true);
     }
@@ -69,7 +77,11 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-customPink">
+    <div
+      className={`${
+        isDarkMode ? "bg-gray-900 text-white" : "bg-customPink text-black"
+      }`}
+    >
       <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen p-4 fade-in">
         <div className="relative w-full max-w-lg mb-8">
@@ -78,7 +90,7 @@ export default function Home() {
           </h1>
 
           <Image
-            src="/img/mitsuki.png" // Ganti dengan path gambar yang benar
+            src="/img/mitsuki.png"
             alt="Anime Character"
             width={100}
             height={100}
@@ -86,7 +98,12 @@ export default function Home() {
           />
         </div>
 
-        <form onSubmit={handleRoast} className="bg-customForm shadow-md rounded-lg p-6 w-full max-w-lg flex flex-col space-y-4 fade-in">
+        <form
+          onSubmit={handleRoast}
+          className={`bg-customForm shadow-md rounded-lg p-6 w-full max-w-lg flex flex-col space-y-4 fade-in ${
+            isDarkMode ? "bg-gray-800" : "bg-white"
+          }`}
+        >
           <Input
             value={name}
             isDarkMode={isDarkMode}
@@ -95,8 +112,8 @@ export default function Home() {
           />
           <Input
             value={age}
-            isDarkMode={isDarkMode} // Pastikan `age` adalah string
-            onChange={(e) => setAge(e.target.value)} // Simpan sebagai string
+            isDarkMode={isDarkMode}
+            onChange={(e) => setAge(e.target.value)}
             placeholder="Umur OC"
           />
           <TextArea
@@ -105,11 +122,15 @@ export default function Home() {
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Deskripsi OC"
           />
-          <SubmitButton loading={loading} />
+          <SubmitButton loading={loading} isDarkMode={isDarkMode} />
         </form>
 
         {showRoast && (
-          <div className="mt-6 bg-gray-50 p-4 rounded shadow-lg w-full max-w-lg overflow-hidden break-words fade-in">
+          <div
+            className={`mt-6 p-4 rounded shadow-lg w-full max-w-lg overflow-hidden break-words fade-in ${
+              isDarkMode ? "bg-gray-800 text-white" : "bg-gray-50 text-black"
+            }`}
+          >
             <h2 className="text-2xl font-semibold mb-4 text-red-600">
               Hasil Roasting:
             </h2>

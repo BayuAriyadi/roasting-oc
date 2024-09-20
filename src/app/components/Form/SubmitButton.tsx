@@ -1,14 +1,17 @@
 interface SubmitButtonProps {
   loading: boolean;
+  isDarkMode: boolean; // Menambahkan prop untuk mode
 }
 
-const SubmitButton = ({ loading }: SubmitButtonProps) => {
+const SubmitButton = ({ loading, isDarkMode }: SubmitButtonProps) => {
   return (
     <button
       type="submit"
-      className={`btn  bg-customButton hover:bg-customButtonHover ${
-        loading ? "cursor-not-allowed" : ""
-      }`}
+      className={`btn ${
+        isDarkMode
+          ? "bg-white hover:bg-gray-500"
+          : "bg-customButton hover:bg-customButtonHover"
+      } ${loading ? "cursor-not-allowed" : ""}`}
       disabled={loading}
     >
       {loading ? (
