@@ -72,7 +72,7 @@ export default function Home() {
     } 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     catch (error) {
-      setRoast("Maaf, terjadi kesalahan dalam menghasilkan roasting.");
+      setRoast("Mohon Maaf, untuk sementara tidak bisa menggunakan Web ini dikarenakan harus bayar API nya wkkw.");
       setShowRoast(true);
     }
     setLoading(false);
