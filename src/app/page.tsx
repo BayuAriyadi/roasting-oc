@@ -63,10 +63,12 @@ export default function Home() {
           </h1>
 
           {/* Small anime character image positioned absolutely above the title */}
-          <img
+          <Image
             src="/img/dongo.jpg" // Replace with the correct image path
             alt="Anime Character"
-            className="absolute -top-20 right-0 w-24 h-auto opacity-70" // Positioned above the title, auto height for proportion
+            width={100}
+            height={100}
+            className="absolute -bottom-8 right-0 w-auto h-auto opacity-70" // Positioned above the title, auto height for proportion
           />
         </div>
         <form
