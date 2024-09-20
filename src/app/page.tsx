@@ -1,10 +1,14 @@
-"use client";
+// src/app/page.tsx
+ "use client"
 import { useState } from "react";
 import axios from "axios";
 import Image from "next/image";
-import { FaGithub, FaFacebook } from "react-icons/fa"; // Import icon dari react-icons
+import Navbar from "./components/Navbar/Navbar";
+import Footer from "./components/Footer/Footer";
+import Input from "./components/Form/Input";
+import TextArea from "./components/Form/TextArea";
+import SubmitButton from "./components/Form/SubmitButton";
 
-// Array gambar acak
 const randomImages = [
   "/img/bensin-habis.jpg",
   "/img/biar-apa.jpg",
@@ -24,29 +28,37 @@ const randomImages = [
 
 export default function Home() {
   const [name, setName] = useState<string>("");
-  const [age, setAge] = useState<number | "">(""); // Initial state bisa kosong atau angka
+  const [age, setAge] = useState<string>(""); // Ubah `age` jadi string
   const [description, setDescription] = useState<string>("");
   const [roast, setRoast] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [showRoast, setShowRoast] = useState<boolean>(false); // Untuk mengontrol kapan roast muncul dengan animasi
+  const [showRoast, setShowRoast] = useState<boolean>(false);
 
   const images = randomImages[Math.floor(Math.random() * randomImages.length)];
 
   const handleRoast = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setShowRoast(false); // Sembunyikan roast saat proses pengambilan data
+    setShowRoast(false);
+
+    const parsedAge = Number(age); // Konversi umur menjadi number
+    if (isNaN(parsedAge)) {
+      console.error("Umur harus berupa angka.");
+      setRoast("Umur harus berupa angka.");
+      setShowRoast(true);
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await axios.post("/api/roast", {
         name,
-        age,
+        age: parsedAge, // Kirim umur sebagai number
         description,
       });
       setRoast(response.data.roast);
-
-      setTimeout(() => setShowRoast(true), 500); // Tampilkan hasil roasting dengan delay
+      setTimeout(() => setShowRoast(true), 500);
     } catch (error) {
-      console.error("Error generating roast:", error);
       setRoast("Maaf, terjadi kesalahan dalam menghasilkan roasting.");
       setShowRoast(true);
     }
@@ -55,65 +67,39 @@ export default function Home() {
 
   return (
     <div className="bg-customPink">
+      <Navbar />
       <div className="flex flex-col items-center justify-center min-h-screen p-4 fade-in">
-        {/* Wrap the title and image in a relative container */}
         <div className="relative w-full max-w-lg mb-8">
           <h1 className="glow-text text-4xl font-bold text-blue-600 text-center relative z-10">
             Roasting OC Luwh
           </h1>
 
-          {/* Small anime character image positioned absolutely above the title */}
           <Image
-            src="/img/mitsuki.png" // Replace with the correct image path
+            src="/img/mitsuki.png" // Ganti dengan path gambar yang benar
             alt="Anime Character"
             width={100}
             height={100}
-            className="absolute -bottom-8 right-0 w-auto h-auto" // Positioned above the title, auto height for proportion
+            className="absolute -bottom-8 right-0 w-auto h-auto"
           />
         </div>
-        <form
-          onSubmit={handleRoast}
-          className="bg-customForm shadow-md rounded-lg p-6 w-full max-w-lg flex flex-col space-y-4 fade-in"
-        >
-          <input
-            type="text"
-            placeholder="Nama OC"
+
+        <form onSubmit={handleRoast} className="bg-customForm shadow-md rounded-lg p-6 w-full max-w-lg flex flex-col space-y-4 fade-in">
+          <Input
             value={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setName(e.target.value)
-            }
-            required
-            className="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Nama OC"
           />
-          <input
-            type="number"
+          <Input
+            value={age} // Pastikan `age` adalah string
+            onChange={(e) => setAge(e.target.value)} // Simpan sebagai string
             placeholder="Umur OC"
-            value={age}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setAge(Number(e.target.value))
-            }
-            required
-            className="p-3 border border-gray-300 rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
-          <textarea
-            placeholder="Deskripsi OC"
+          <TextArea
             value={description}
-            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-              setDescription(e.target.value)
-            }
-            required
-            rows={4}
-            className="p-3 border border-gray-300 rounded-lg w-full resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Deskripsi OC"
           />
-          <button
-            type="submit"
-            className={`w-full bg-customButton font-bold text-gray-700 py-3 rounded-lg hover:bg-customButtonHover transition duration-300 ${
-              loading ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-            disabled={loading}
-          >
-            {loading ? "Generating Roast... " : "Roast!"}
-          </button>
+          <SubmitButton loading={loading} />
         </form>
 
         {showRoast && (
@@ -121,10 +107,9 @@ export default function Home() {
             <h2 className="text-2xl font-semibold mb-4 text-red-600">
               Hasil Roasting:
             </h2>
-            <div className="text-left text-lg break-words max-w-full">
+            <div className="text-left text-md break-words max-w-full">
               {roast}
             </div>
-            {/* Menampilkan gambar acak di bawah teks roast */}
             <div className="mt-4">
               <Image
                 src={images}
@@ -137,33 +122,7 @@ export default function Home() {
           </div>
         )}
       </div>
-
-      {/* Footer */}
-      <footer className="bg-transparent p-4 text-center">
-        <div className="flex items-center justify-center space-x-4">
-          {/* GitHub Link */}
-          <a
-            href="https://github.com/BayuAriyadi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-800 flex items-center"
-          >
-            <FaGithub className="text-2xl mr-2" />
-            <span>Bayu Ariyadi</span>
-          </a>
-
-          {/* Facebook Link */}
-          <a
-            href="https://facebook.com/bayu.ariyadi.fuujin"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-gray-600 hover:text-gray-800 flex items-center"
-          >
-            <FaFacebook className="text-2xl mr-2" />
-            <span>Bayu Ariyadi</span>
-          </a>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

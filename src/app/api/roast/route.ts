@@ -2,45 +2,45 @@ import { NextResponse } from 'next/server';
 import { CohereClient } from 'cohere-ai';
 
 const cohere = new CohereClient({
-  token: process.env.COHERE_API_KEY, // Ensure your API key is set correctly in the environment
+  token: process.env.COHERE_API_KEY, // Pastikan API key sudah diatur di .env
 });
 
 export async function POST(req: Request) {
   try {
     const { name, age, description } = await req.json();
 
-    // Build the prompt for roasting
+    // Bangun prompt untuk roasting
     const prompt = `Buat roasting yang tajam dan singkat untuk karakter OC berikut:
       - Nama: ${name}
       - Umur: ${age}
       - Deskripsi: ${description}
 
-      di awal kalimat kamu ngomong "oke kali ini OC yang bla bla bla"
-      Roasting dari nama berdasarkan filosofinya, jika usia oc tersebut dibawah 16 tahun maka tuduh sang artist adalah seorang pedo, Berdasarkan deskripsinya Buat roasting ini lucu, kejam, dan sarkastik dalam bahasa Indonesia yang gaul dan kekinian, dan kaitkan sama karakter yang mirip dengan deskripsi sang OC, utamakan roasting deskripsi OC tersebut, lalu Sertakan kecurigaan jangan-jangan artistnya jarang menggambar!
-      Roasting dengan Realistis dan Panjang. Jika usianya ratusan tahun, ejek dengan manhwa kultivasi dunia persilatan
-      remehkan sang artist seperti menambahkan kata "dek!" kepada sang artist
-      hanya roasting tidak usah klarifikasi`;
+      Di awal kalimat kamu ngomong "oke kali ini OC yang bla bla bla"
+      Roasting dari nama berdasarkan filosofinya, jika usia OC tersebut di bawah 16 tahun maka tuduh sang artist adalah seorang pedo, Berdasarkan deskripsinya Buat roasting ini lucu, kejam, dan sarkastik dalam bahasa Indonesia yang gaul dan kekinian, dan kaitkan sama karakter yang mirip dengan deskripsi sang OC, utamakan roasting deskripsi OC tersebut, lalu Sertakan kecurigaan jangan-jangan artistnya jarang menggambar!
+      Roasting dengan Realistis dan Panjang. Jika usianya ratusan tahun, ejek dengan manhwa kultivasi dunia persilatan.
+      Remehkan sang artist seperti menambahkan kata "dek!" kepada sang artist.
+      Hanya roasting, tidak usah klarifikasi.`;
 
-    console.log("Sending request to Cohere with prompt:", prompt);
+    console.log("Mengirim request ke Cohere dengan prompt:", prompt);
 
-    // Send the request to Cohere API
+    // Kirim permintaan ke API Cohere
     const response = await cohere.chat({
-      model: 'command-r-plus-08-2024', // Ensure this model is valid
+      model: 'command-r-plus-08-2024', // Pastikan model ini valid
       message: prompt,
     });
 
-    console.log("Response from Cohere API:", response);
+    console.log("Respons dari Cohere API:", response);
 
-    // Extract the text from the API response
-    const roast = response?.text?.replace(/"/g, '') || "Gagal menghasilkan roasting"; // Fallback message
+    // Ambil teks dari respons API
+    const roast = response?.text?.replace(/"/g, '') || "Gagal menghasilkan roasting";
     return NextResponse.json({ roast });
 
-  } catch (error: unknown) { // Use `unknown` instead of `any`
+  } catch (error: unknown) {
     if (error instanceof Error) {
-      console.error('Error while calling Cohere API:', error.message);
+      console.error('Terjadi kesalahan saat memanggil API Cohere:', error.message);
       return NextResponse.json({ error: 'Gagal menghasilkan roasting' }, { status: 500 });
     }
-    console.error('Unexpected error', error);
+    console.error('Kesalahan tidak terduga', error);
     return NextResponse.json({ error: 'Gagal menghasilkan roasting' }, { status: 500 });
   }
 }
