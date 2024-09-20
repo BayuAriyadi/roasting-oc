@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --pink2:#FFDBAA;
+  --background: #FBA1B7;
   --foreground: #171717;
 }
 
@@ -14,10 +15,26 @@
   }
 }
 
+/* Add this to your global CSS file */
+
+
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+form {
+  background-color: #FFF0F5;
+}
+
+button {
+  background-color: #FFDBAA;
+  color: #000; /* You can adjust the text color for better contrast */
+}
+
+button:hover {
+  background-color: #E6C393; /* Slightly darker shade for hover effect */
 }
 
 @layer utilities {
@@ -65,7 +82,7 @@ body {
     transform: scale(0.95);
   }
 }
-
+/* 
 .result-fade-in {
   animation: resultFadeIn 1s ease-in-out forwards;
 }
@@ -79,4 +96,24 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+} */
+
+/* Add this to your CSS file, for example: globals.css */
+.glow-text {
+  color: #ffffff; /* Set text color to white or whatever color you prefer */
+  text-shadow: 
+    0 0 8px rgba(255, 255, 255, 0.8),  /* Outer glow */
+    0 0 12px rgba(255, 255, 255, 0.6), /* Medium glow */
+    0 0 16px rgba(255, 255, 255, 0.5); /* Inner glow */
+  
+  font-size: 2.5rem; /* Adjust font size */
+  transition: text-shadow 0.3s ease-in-out;
+}
+
+/* Optional: On hover, intensify the glow */
+.glow-text:hover {
+  text-shadow: 
+    0 0 12px rgba(255, 255, 255, 1),   /* Outer glow */
+    0 0 20px rgba(255, 255, 255, 0.8), /* Medium glow */
+    0 0 30px rgba(255, 255, 255, 0.7); /* Inner glow */
 }

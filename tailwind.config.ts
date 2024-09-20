@@ -9,6 +9,9 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        customForm: '#FFF0F5',
+        customButton: '#FFDBAA',
+        customButtonHover: '#E6C393',
         background: "var(--background)",
         foreground: "var(--foreground)",
       },

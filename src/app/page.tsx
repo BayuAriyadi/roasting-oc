@@ -54,26 +54,26 @@ export default function Home() {
   };
 
   return (
-    <div>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4 fade-in">
+    <div className="bg-customPink">
+      <div className="flex flex-col items-center justify-center min-h-screen p-4 fade-in">
         {/* Wrap the title and image in a relative container */}
         <div className="relative w-full max-w-lg mb-8">
-          <h1 className="text-4xl font-bold text-blue-600 text-center relative z-10">
+          <h1 className="glow-text text-4xl font-bold text-blue-600 text-center relative z-10">
             Roasting OC Luwh
           </h1>
 
           {/* Small anime character image positioned absolutely above the title */}
           <Image
-            src="/img/dongo.jpg" // Replace with the correct image path
+            src="/img/mitsuki.png" // Replace with the correct image path
             alt="Anime Character"
             width={100}
             height={100}
-            className="absolute -bottom-8 right-0 w-auto h-auto opacity-70" // Positioned above the title, auto height for proportion
+            className="absolute -bottom-8 right-0 w-auto h-auto" // Positioned above the title, auto height for proportion
           />
         </div>
         <form
           onSubmit={handleRoast}
-          className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg flex flex-col space-y-4 fade-in"
+          className="bg-customForm shadow-md rounded-lg p-6 w-full max-w-lg flex flex-col space-y-4 fade-in"
         >
           <input
             type="text"
@@ -107,7 +107,7 @@ export default function Home() {
           />
           <button
             type="submit"
-            className={`w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300 ${
+            className={`w-full bg-customButton font-bold text-gray-700 py-3 rounded-lg hover:bg-customButtonHover transition duration-300 ${
               loading ? "opacity-50 cursor-not-allowed" : ""
             }`}
             disabled={loading}
