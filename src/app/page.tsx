@@ -55,7 +55,7 @@ export default function Home() {
 
     const parsedAge = Number(age);
     if (isNaN(parsedAge)) {
-      // setRoast("Umur harus berupa angka.");
+      setRoast(["Umur harus berupa angka."]);
       setShowRoast(true);
       setLoading(false);
       return;
@@ -71,7 +71,7 @@ export default function Home() {
       setTimeout(() => setShowRoast(true), 500);
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      // setRoast("Mohon Maaf, untuk sementara tidak bisa menggunakan Web ini dikarenakan harus bayar API nya wkkw.");
+      setRoast(["Mohon Maaf, untuk sementara tidak bisa menggunakan Web ini dikarenakan harus bayar API nya wkkw."]);
       setShowRoast(true);
     }
     setLoading(false);
