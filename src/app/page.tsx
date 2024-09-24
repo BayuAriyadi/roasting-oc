@@ -69,8 +69,10 @@ export default function Home() {
       });
       setRoast(response.data.paragraphs);
       setTimeout(() => setShowRoast(true), 500);
-    } catch (error) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    catch (error) {
+      
       setRoast(["Mohon Maaf, untuk sementara tidak bisa menggunakan Web ini dikarenakan harus bayar API nya wkkw."]);
       setShowRoast(true);
     }
