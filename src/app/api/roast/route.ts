@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
-const apiKey = process.env.API_KEY
+const apiKey = process.env.API_KEY;
 
 export async function POST(req: Request) {
   try {
@@ -26,26 +26,33 @@ export async function POST(req: Request) {
     };
 
     const headers = {
-      "Authorization": `Bearer ${apiKey}`,
-      "Content-Type": "application/json"
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
     };
 
     const response = await fetch("https://api.edenai.run/v2/text/chat", {
-      method: 'POST',
+      method: "POST",
       headers: headers,
       body: JSON.stringify(payload),
     });
 
     const data = await response.json();
-    console.log("Respons dari API:", data); // Cek isi data
+    // console.log("Respons dari API:", data); // Cek isi data
 
-    const roast = data['openai/gpt-4o-mini']?.generated_text || "Gagal menghasilkan roasting"; // Cek apakah generated_text ada
-    return NextResponse.json({ roast });
-
+    const roast =
+      data["openai/gpt-4o-mini"]?.generated_text ||
+      "Gagal menghasilkan roasting"; // Cek apakah generated_text ada
+    const paragraphs: string[] = roast
+      .split("\n\n")
+      .map((paragraph: string) => paragraph.trim())
+      .filter((paragraph: string) => paragraph.length > 0);
+    // Mengembalikan hasil sebagai array paragraf
+    return NextResponse.json({ paragraphs });
   } catch (error) {
-    console.error('Terjadi kesalahan saat memanggil API:', error);
-    return NextResponse.json({ error: 'Gagal menghasilkan roasting' }, { status: 500 });
+    console.error("Terjadi kesalahan saat memanggil API:", error);
+    return NextResponse.json(
+      { error: "Gagal menghasilkan roasting" },
+      { status: 500 }
+    );
   }
 }
-
-

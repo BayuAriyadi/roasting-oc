@@ -29,7 +29,7 @@ export default function Home() {
   const [name, setName] = useState<string>("");
   const [age, setAge] = useState<string>("");
   const [description, setDescription] = useState<string>("");
-  const [roast, setRoast] = useState<string>("");
+  const [roast, setRoast] = useState<string[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [showRoast, setShowRoast] = useState<boolean>(false);
 
@@ -55,7 +55,7 @@ export default function Home() {
 
     const parsedAge = Number(age);
     if (isNaN(parsedAge)) {
-      setRoast("Umur harus berupa angka.");
+      // setRoast("Umur harus berupa angka.");
       setShowRoast(true);
       setLoading(false);
       return;
@@ -67,12 +67,11 @@ export default function Home() {
         age: parsedAge,
         description,
       });
-      setRoast(response.data.roast);
+      setRoast(response.data.paragraphs);
       setTimeout(() => setShowRoast(true), 500);
-    } 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    catch (error) {
-      setRoast("Mohon Maaf, untuk sementara tidak bisa menggunakan Web ini dikarenakan harus bayar API nya wkkw.");
+    } catch (error) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // setRoast("Mohon Maaf, untuk sementara tidak bisa menggunakan Web ini dikarenakan harus bayar API nya wkkw.");
       setShowRoast(true);
     }
     setLoading(false);
@@ -136,8 +135,15 @@ export default function Home() {
             <h2 className="text-2xl font-semibold mb-4 text-red-600">
               Hasil Roasting:
             </h2>
-            <div className="text-left text-md break-words max-w-full">
-              {roast}
+            <div className="text-justify text-md break-words max-w-full">
+              {/* {roast} */}
+
+              {roast.map((paragraph, index) => (
+                <div key={index}>
+                  <p>{paragraph}</p>
+                  <br />
+                </div> // Menampilkan setiap paragraf dalam elemen <p>
+              ))}
             </div>
             <div className="mt-4">
               <Image
